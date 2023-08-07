@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 
 import KaydedilenlerListesi from "./Filmler/KaydedilenlerListesi";
 
@@ -39,7 +39,12 @@ export default function App() {
         }
       />
 
-      <div>Bu Div'i kendi Routelarınızla değiştirin</div>
+      <div>
+        <Switch>
+          <Route></Route>
+          <Route></Route>
+        </Switch>
+      </div>
     </div>
   );
 }
