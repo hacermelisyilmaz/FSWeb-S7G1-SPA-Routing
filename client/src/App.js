@@ -14,7 +14,9 @@ export default function App() {
         .get("http://localhost:5001/api/filmler") // Burayı Postman'le çalışın
         .then((response) => {
           // Bu kısmı log statementlarıyla çalışın
+          console.log(response.data);
           // ve burdan gelen response'u 'movieList' e aktarın
+          setMovieList(response.data);
         })
         .catch((error) => {
           console.error("Sunucu Hatası", error);
