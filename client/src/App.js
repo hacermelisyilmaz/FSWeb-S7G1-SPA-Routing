@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import FilmListesi from "./Filmler/FilmListesi.js";
+import Film from "./Filmler/Film.js";
 
 import KaydedilenlerListesi from "./Filmler/KaydedilenlerListesi";
 
@@ -15,7 +16,7 @@ export default function App() {
         .get("http://localhost:5001/api/filmler") // Burayı Postman'le çalışın
         .then((response) => {
           // Bu kısmı log statementlarıyla çalışın
-          console.log(response.data);
+          // console.log(response.data);
           // ve burdan gelen response'u 'movieList' e aktarın
           setMovieList(response.data);
         })
@@ -27,25 +28,24 @@ export default function App() {
   }, []);
 
   const KaydedilenlerListesineEkle = (id) => {
-    // Burası esnek. Aynı filmin birden fazla kez "saved" e eklenmesini engelleyin
+    if (!saved.includes(id)) {
+      setSaved([...saved, id]);
+    }
   };
 
   return (
     <div>
-      <KaydedilenlerListesi
-        list={
-          [
-            /* Burası esnek */
-          ]
-        }
-      />
+      <KaydedilenlerListesi list={saved} />
 
       <div>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <FilmListesi movies={movieList} />
           </Route>
-          <Route></Route>
+
+          <Route exact path="/filmler/:id">
+            <Film saveFunc={KaydedilenlerListesineEkle} />
+          </Route>
         </Switch>
       </div>
     </div>
